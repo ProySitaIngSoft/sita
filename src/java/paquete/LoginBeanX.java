@@ -19,9 +19,10 @@ class LoginBeanX{
     public LoginBeanX(){
     }
 
-    public boolean validateUser(String userName, String password){
+    public int validateUser(String userName, String password){
         String nombre = "";
         String pass = "";
+        int id = 0;
         try {
             con = Conexion.getConexion();
             String consulta = "Select * from usuarios where nom_usu=? and pass_usu=?";
@@ -30,6 +31,9 @@ class LoginBeanX{
             pst.setString(2, password);
             rs = pst.executeQuery();
             status = rs.next();   
+            if(status){
+                id = rs.getInt("usuarios.id_usu");
+            }
         } catch (Exception e) {  
             System.out.println(e);  
         } finally {  
@@ -46,7 +50,7 @@ class LoginBeanX{
                 }  
             }  
         } 
-        return status;
+        return id;
     }
     
     public int getAccess(int id){
@@ -57,9 +61,7 @@ class LoginBeanX{
             pst.setInt(1, id);
             rs = pst.executeQuery();
             int acc = rs.getInt("usuarios.acc_usu");
-            switch (acc){
-                case 1: 
-            }
+            return acc;
         }catch (Exception e){
             System.out.println(e);
         }

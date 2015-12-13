@@ -9,6 +9,8 @@
         
         <action name="Login" class="paquete.LoginAction">
             <result name="exitoso">admin.jsp</result>
+            <result name="exitosop">pacientei.jsp</result>
+            <result name="exitosom">medicoi.jsp</result>
         </action>
         
         <action name="Add" class="paquete.AddAction">
