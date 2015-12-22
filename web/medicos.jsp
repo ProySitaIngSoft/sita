@@ -225,7 +225,7 @@
 <div id="about" class="container-fluid">
   <div class="row">
     <div class="col-sm-8">
-      <h2>Administración de usuarios</h2><br>
+      <h2>Administración de medicos</h2><br>
     </div>
     <div class="col-sm-4">
       <span class="glyphicon glyphicon-signal logo"></span>
