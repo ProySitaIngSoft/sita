@@ -30,9 +30,9 @@ public class LoginAction
             if(acc==3){
                 return "exitoso";
             }else if(acc==2){
-                return "medicoi";
+                return "exitosom";
             }else{
-                return "pacientei";
+                return "exitosop";
             }
         }else{
             return "error";

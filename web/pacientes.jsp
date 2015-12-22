@@ -2,9 +2,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <html lang="es">
-    <%
-        int Id = Integer.parseInt(request.getParameter("id"));
-    %>
 <head>
   <!-- Theme Made By www.w3schools.com - No Copyright -->
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -228,72 +225,72 @@
 <div id="about" class="container-fluid">
   <div class="row">
     <div class="col-sm-8">
-      <h2>Modificar usuario</h2><br>
+      <h2>Administración de pacientes</h2><br>
     </div>
     <div class="col-sm-4">
-      <span class="glyphicon glyphicon-wrench logo"></span>
+      <span class="glyphicon glyphicon-signal logo"></span>
     </div>
-    <div class="col-sm-8">
-      <%@ page import="java.sql.*" %>
-      <jsp:useBean id="manejador" scope="session" class="paquete.DB"></jsp:useBean>
-      <h4>Datos actuales del usuario</h4>
-      <%
+      <div>
+        <%@ page import="java.sql.*" %>
+        <jsp:useBean id="manejador" scope="session" class="paquete.DB"></jsp:useBean>
+        <%
             String user = (String)session.getAttribute("userName");
             String rol = "";
             int nivel = 1;
             ResultSet rs=null;
             ResultSet rs2 = null;
             manejador.setConnection("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/sita");
+
+            rs2=manejador.executeQuery("SELECT id_med, nom_med, ap_med, Esp_med, Ced_med, id_usu FROM medicos");
             
-            if(3==3){
-            rs2=manejador.executeQuery("SELECT id_usu, nom_usu, pass_usu, acc_usu FROM usuarios WHERE id_usu='"+Id+"' ");
             out.println("<table class=\"table table-striped table-bordered table-responsive\">");
             out.println("<thead>");
             out.println("<tr>");
             out.println("<th>Nombre</th>");
-            out.println("<th>Password</th>");
-            out.println("<th>Rol</th>");
+            out.println("<th>Edad</th>");
+            out.println("<th>Telefono</th>");
+            out.println("<th>E-mail</th>");
+            out.println("<th>Acciones</th>");
             out.println("</tr>");
             out.println("</thead>");
             out.println("<tbody>");
             
             while(rs2.next()){
-                String acceso = "Administrador";
-                if(rs2.getInt("usuarios.acc_usu")==1){
-                    acceso = "Paciente";
-                }else if(rs2.getInt("usuarios.acc_usu")==2){
-                    acceso = "Medico";
-                }
                 out.println("<tr>");
-                out.println("<th>"+rs2.getString("usuarios.nom_usu")+"</th>");
-                out.println("<th>"+rs2.getString("usuarios.pass_usu")+"</th>");
-                out.println("<th>"+acceso+"</th>");
+                out.println("<th>"+rs2.getString("medicos.nom_med")+" "+rs2.getString("medicos.ap_med")+"</th>");
+                out.println("<th>"+rs2.getString("medicos.Esp_med")+"</th>");
+                out.println("<th>"+rs2.getString("medicos.Ced_med")+"</th>");
+                out.println("<th>"+rs2.getString("medicos.id_usu")+"</th>");
+                out.println("<th>");
+                out.println(" <a href='modificarM.jsp?id="+rs2.getString("medicos.id_med")+"'>Modificar</a> |");
+                out.println(" <a href='eliminarM.jsp?id="+rs2.getString("medicos.id_med")+"'>Eliminar</a> ");
+                out.println("</th>");
                 out.println("</tr>");
                 
             }
             
             out.println("</tbody>");
             out.println("</table>");
-            }else{
-                
-            }
-      %>
-    </div>
+
+        %>
+      </div>
   </div>
-        <s:form action="/Mod">
-            <s:textfield placeHolder="nombre de usuario" name="username" label="Username"/>
-            <input type="hidden" name="id" value=<%out.println(Id);%>/>
-            <s:textfield placeHolder="Contraseña" name="password" label="Password" /><br>
-             <s:select label="Rol" 
-		headerKey="-1" headerValue="Asigne un rol al usuario"
-		list="#{'1':'Paciente','2':'Medico', '3':'Administrador'}" 
-		name="rol" 
-		value="rol" />
+      <h2>Registrar nuevo paciente</h2>
+        <s:form action="/MAdd">
+            <s:textfield placeHolder="Nombre(s)" name="nombre" label="Nombre"/>
+            <s:textfield placeHolder="Apellido(s)" name="apellido" label="Apellidos" />
+            <s:textfield placeHolder="Calle y #" name="callen" label="Callen" />
+            <s:textfield placeHolder="Colonia" name="colonia" label="Colonia" />
+            <s:textfield placeHolder="Municipio o delegación" name="municipio" label="Municipio" />
+            <s:textfield placeHolder="Ciudad" name="ciudad" label="Ciudad" />
+            <s:textfield placeHolder="Cedula" name="cedula" label="Cedula" />
+            <s:textfield placeHolder="yyyy-dd-MM" name="edad" label="Edad" />
+            <s:textfield placeHolder="Especialidad" name="especialidad" label="Especialidad" />
             <br>
             <br>
             <s:submit/>
         </s:form>
-</div>
+
 
 <footer class="container-fluid text-center">
   <a href="#myPage" title="To Top">

@@ -68,25 +68,25 @@ class LoginBeanX{
         return 0;
     }
     
-    public int modifyUser(String userName, String password, String rol, int id){
+    public int modifyUser(String userName, String password, int rol, int id){
         int status = 0;
         String pass2 = "";
         try {
             con = Conexion.getConexion();
-            int nivel = 1;
-            if(rol=="Administrador"){
-                nivel = 3;
-            }else if(rol=="Medico"){
-                nivel = 2;
+            String nivel = "Paciente";
+            if(rol==3){
+                nivel = "Administrador";
+            }else if(rol==2){
+                nivel = "Medico";
             }
             if(password==""){
                 pst = con.prepareStatement("SELECT usuarios.pass_usu FROM usuarios WHERE usuarios.id_usu="+id+"");
                 rs = pst.executeQuery("SELECT usuarios.pass_usu FROM usuarios WHERE usuarios.id_usu="+id+"");
                 pass2 = rs.getString("usuarios.pass_usu");
+                password = pass2;
             }
-            password = pass2;
             String consulta = "update usuarios\n" +
-                            "set nom_usu='"+userName+"', pass_usu='"+password+"', acc_usu='"+nivel+"'\n" +
+                            "set nom_usu='"+userName+"', pass_usu='"+password+"', acc_usu='"+rol+"'\n" +
                             "where id_usu='"+id+"';";
             pst = con.prepareStatement(consulta);
             int cols = pst.executeUpdate(consulta);
