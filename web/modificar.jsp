@@ -286,7 +286,7 @@
             <s:textfield placeHolder="Contraseña" name="password" label="Password" /><br>
              <s:select label="Rol" 
 		headerKey="-1" headerValue="Asigne un rol al usuario"
-		list="{'Paciente','Medico', 'Administrador'}" 
+		list="#{'1':'Paciente','2':'Medico', '3':'Administrador'}" 
 		name="rol" 
 		value="rol" />
             <br>

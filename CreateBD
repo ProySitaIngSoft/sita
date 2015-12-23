@@ -1,0 +1,92 @@
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Versión del servidor:         5.6.26 - MySQL Community Server (GPL)
+-- SO del servidor:              Win64
+-- HeidiSQL Versión:             9.3.0.4984
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+-- Volcando estructura de base de datos para sita
+CREATE DATABASE IF NOT EXISTS `sita` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `sita`;
+
+
+-- Volcando estructura para tabla sita.citas
+CREATE TABLE IF NOT EXISTS `citas` (
+  `id_cita` int(11) NOT NULL AUTO_INCREMENT,
+  `id_usu` int(11) NOT NULL,
+  `id_med` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `hora` time NOT NULL,
+  PRIMARY KEY (`id_cita`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Volcando datos para la tabla sita.citas: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `citas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `citas` ENABLE KEYS */;
+
+
+-- Volcando estructura para tabla sita.consultas
+CREATE TABLE IF NOT EXISTS `consultas` (
+  `id_cons` int(11) NOT NULL AUTO_INCREMENT,
+  `id_usu` int(11) DEFAULT NULL,
+  `id_med` int(11) DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
+  `costo` decimal(10,0) DEFAULT NULL,
+  `anotaciones` text,
+  PRIMARY KEY (`id_cons`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Volcando datos para la tabla sita.consultas: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `consultas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `consultas` ENABLE KEYS */;
+
+
+-- Volcando estructura para tabla sita.medicos
+CREATE TABLE IF NOT EXISTS `medicos` (
+  `id_med` int(11) NOT NULL AUTO_INCREMENT,
+  `id_usu` int(11) DEFAULT NULL,
+  `nom_med` varchar(50) DEFAULT NULL,
+  `ap_med` varchar(50) DEFAULT NULL,
+  `calle_med` varchar(50) DEFAULT NULL,
+  `Col_med` varchar(50) DEFAULT NULL,
+  `Del_med` varchar(50) DEFAULT NULL,
+  `Cd_med` varchar(50) DEFAULT NULL,
+  `Ced_med` varchar(50) DEFAULT NULL,
+  `Ed_med` date DEFAULT NULL,
+  `Esp_med` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id_med`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- Volcando datos para la tabla sita.medicos: ~1 rows (aproximadamente)
+/*!40000 ALTER TABLE `medicos` DISABLE KEYS */;
+INSERT INTO `medicos` (`id_med`, `id_usu`, `nom_med`, `ap_med`, `calle_med`, `Col_med`, `Del_med`, `Cd_med`, `Ced_med`, `Ed_med`, `Esp_med`) VALUES
+	(1, NULL, 'Juan', 'Perez', 'De los limones #12', 'Arboledas', 'Azcapotzalco', 'México', '1111111111', '1993-09-29', 'Gastrointerologo');
+/*!40000 ALTER TABLE `medicos` ENABLE KEYS */;
+
+
+-- Volcando estructura para tabla sita.usuarios
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `id_usu` int(11) NOT NULL AUTO_INCREMENT,
+  `nom_usu` varchar(50) NOT NULL,
+  `pass_usu` varchar(50) NOT NULL,
+  `acc_usu` varchar(50) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id_usu`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
+-- Volcando datos para la tabla sita.usuarios: ~5 rows (aproximadamente)
+/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+INSERT INTO `usuarios` (`id_usu`, `nom_usu`, `pass_usu`, `acc_usu`) VALUES
+	(1, 'Rocio', 'rocio', '3'),
+	(2, 'Andres', 'andres', '3'),
+	(12, 'Martha', '1234', '1'),
+	(13, 'Alejandra', 'alejandra', '3'),
+	(14, 'Dillan', 'dillan', '2');
+/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

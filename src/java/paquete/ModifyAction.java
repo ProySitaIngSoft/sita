@@ -9,7 +9,7 @@ public class ModifyAction extends ActionSupport
 {
         private String username;
         private String password;
-        private String rol;
+        private int rol;
         private int Id;
 
     public int getId() {
@@ -28,11 +28,11 @@ public class ModifyAction extends ActionSupport
         this.password = password;
     }
 
-    public String getRol() {
+    public int getRol() {
         return rol;
     }
 
-    public void setRol(String rol) {
+    public void setRol(int rol) {
         this.rol = rol;
     }
         

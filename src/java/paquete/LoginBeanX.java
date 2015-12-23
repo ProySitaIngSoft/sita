@@ -19,9 +19,10 @@ class LoginBeanX{
     public LoginBeanX(){
     }
 
-    public boolean validateUser(String userName, String password){
+    public int validateUser(String userName, String password){
         String nombre = "";
         String pass = "";
+        int id = 0;
         try {
             con = Conexion.getConexion();
             String consulta = "Select * from usuarios where nom_usu=? and pass_usu=?";
@@ -30,6 +31,9 @@ class LoginBeanX{
             pst.setString(2, password);
             rs = pst.executeQuery();
             status = rs.next();   
+            if(status){
+                id = rs.getInt("usuarios.id_usu");
+            }
         } catch (Exception e) {  
             System.out.println(e);  
         } finally {  
@@ -46,7 +50,7 @@ class LoginBeanX{
                 }  
             }  
         } 
-        return status;
+        return id;
     }
     
     public int getAccess(int id){
@@ -57,34 +61,32 @@ class LoginBeanX{
             pst.setInt(1, id);
             rs = pst.executeQuery();
             int acc = rs.getInt("usuarios.acc_usu");
-            switch (acc){
-                case 1: 
-            }
+            return acc;
         }catch (Exception e){
             System.out.println(e);
         }
         return 0;
     }
     
-    public int modifyUser(String userName, String password, String rol, int id){
+    public int modifyUser(String userName, String password, int rol, int id){
         int status = 0;
         String pass2 = "";
         try {
             con = Conexion.getConexion();
-            int nivel = 1;
-            if(rol=="Administrador"){
-                nivel = 3;
-            }else if(rol=="Medico"){
-                nivel = 2;
+            String nivel = "Paciente";
+            if(rol==3){
+                nivel = "Administrador";
+            }else if(rol==2){
+                nivel = "Medico";
             }
             if(password==""){
                 pst = con.prepareStatement("SELECT usuarios.pass_usu FROM usuarios WHERE usuarios.id_usu="+id+"");
                 rs = pst.executeQuery("SELECT usuarios.pass_usu FROM usuarios WHERE usuarios.id_usu="+id+"");
                 pass2 = rs.getString("usuarios.pass_usu");
+                password = pass2;
             }
-            password = pass2;
             String consulta = "update usuarios\n" +
-                            "set nom_usu='"+userName+"', pass_usu='"+password+"', acc_usu='"+nivel+"'\n" +
+                            "set nom_usu='"+userName+"', pass_usu='"+password+"', acc_usu='"+rol+"'\n" +
                             "where id_usu='"+id+"';";
             pst = con.prepareStatement(consulta);
             int cols = pst.executeUpdate(consulta);

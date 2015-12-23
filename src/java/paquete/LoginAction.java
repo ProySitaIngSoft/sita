@@ -25,8 +25,15 @@ public class LoginAction
             LoginBeanX lb = new LoginBeanX();
             System.out.println("Usuario: " + username);
         //check to see if this user/password combination are valid
-        if(lb.validateUser(username, password)){
-            return "exitoso";
+            int acc = lb.validateUser(username, password);
+        if(acc!=0){
+            if(acc==3){
+                return "exitoso";
+            }else if(acc==2){
+                return "exitosom";
+            }else{
+                return "exitosop";
+            }
         }else{
             return "error";
         }

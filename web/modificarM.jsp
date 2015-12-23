@@ -222,7 +222,7 @@
   <h1>SITA</h1> 
   <p>Sistema inteligente de citas médicas</p> 
 
-</div>
+</div> 
 
 <!-- Container (About Section) -->
 <div id="about" class="container-fluid">

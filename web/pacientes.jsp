@@ -225,7 +225,7 @@
 <div id="about" class="container-fluid">
   <div class="row">
     <div class="col-sm-8">
-      <h2>Administración de medicos</h2><br>
+      <h2>Administración de pacientes</h2><br>
     </div>
     <div class="col-sm-4">
       <span class="glyphicon glyphicon-signal logo"></span>
@@ -247,9 +247,9 @@
             out.println("<thead>");
             out.println("<tr>");
             out.println("<th>Nombre</th>");
-            out.println("<th>Especialidad</th>");
-            out.println("<th>Cedula</th>");
-            out.println("<th>Usuario</th>");
+            out.println("<th>Edad</th>");
+            out.println("<th>Telefono</th>");
+            out.println("<th>E-mail</th>");
             out.println("<th>Acciones</th>");
             out.println("</tr>");
             out.println("</thead>");
@@ -262,8 +262,8 @@
                 out.println("<th>"+rs2.getString("medicos.Ced_med")+"</th>");
                 out.println("<th>"+rs2.getString("medicos.id_usu")+"</th>");
                 out.println("<th>");
-                out.println(" <a href='modificarM.jsp?id="+rs2.getString("medicos.id_med")+"'>Modificar medico</a> |");
-                out.println(" <a href='eliminarM.jsp?id="+rs2.getString("medicos.id_med")+"'>Eliminar medico</a> ");
+                out.println(" <a href='modificarM.jsp?id="+rs2.getString("medicos.id_med")+"'>Modificar</a> |");
+                out.println(" <a href='eliminarM.jsp?id="+rs2.getString("medicos.id_med")+"'>Eliminar</a> ");
                 out.println("</th>");
                 out.println("</tr>");
                 
@@ -275,7 +275,7 @@
         %>
       </div>
   </div>
-      <h2>Agregar nuevo medico</h2>
+      <h2>Registrar nuevo paciente</h2>
         <s:form action="/MAdd">
             <s:textfield placeHolder="Nombre(s)" name="nombre" label="Nombre"/>
             <s:textfield placeHolder="Apellido(s)" name="apellido" label="Apellidos" />

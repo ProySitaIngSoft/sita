@@ -225,7 +225,7 @@
 <div id="about" class="container-fluid">
   <div class="row">
     <div class="col-sm-8">
-      <h2>Administración de medicos</h2><br>
+      <h2>Administración de usuarios</h2><br>
     </div>
     <div class="col-sm-4">
       <span class="glyphicon glyphicon-signal logo"></span>
@@ -241,29 +241,32 @@
             ResultSet rs2 = null;
             manejador.setConnection("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/sita");
 
-            rs2=manejador.executeQuery("SELECT id_med, nom_med, ap_med, Esp_med, Ced_med, id_usu FROM medicos");
+            rs2=manejador.executeQuery("SELECT id_usu, nom_usu, acc_usu FROM usuarios");
             
             out.println("<table class=\"table table-striped table-bordered table-responsive\">");
             out.println("<thead>");
             out.println("<tr>");
             out.println("<th>Nombre</th>");
-            out.println("<th>Especialidad</th>");
-            out.println("<th>Cedula</th>");
-            out.println("<th>Usuario</th>");
+            out.println("<th>Rol</th>");
             out.println("<th>Acciones</th>");
             out.println("</tr>");
             out.println("</thead>");
             out.println("<tbody>");
             
             while(rs2.next()){
+                String acceso = "Administrador";
+                if(rs2.getInt("usuarios.acc_usu")==1){
+                    acceso = "Paciente";
+                }else if(rs2.getInt("usuarios.acc_usu")==2){
+                    acceso = "Medico";
+                }
                 out.println("<tr>");
-                out.println("<th>"+rs2.getString("medicos.nom_med")+" "+rs2.getString("medicos.ap_med")+"</th>");
-                out.println("<th>"+rs2.getString("medicos.Esp_med")+"</th>");
-                out.println("<th>"+rs2.getString("medicos.Ced_med")+"</th>");
-                out.println("<th>"+rs2.getString("medicos.id_usu")+"</th>");
+                out.println("<th>"+rs2.getString("usuarios.nom_usu")+"</th>");
+                out.println("<th>"+acceso+"</th>");
+                //out.println("<th>"+rs2.getString("usuarios.acc_usu")+"</th>");
                 out.println("<th>");
-                out.println(" <a href='modificarM.jsp?id="+rs2.getString("medicos.id_med")+"'>Modificar medico</a> |");
-                out.println(" <a href='eliminarM.jsp?id="+rs2.getString("medicos.id_med")+"'>Eliminar medico</a> ");
+                out.println(" <a href='modificar.jsp?id="+rs2.getString("usuarios.id_usu")+"'>Modificar usuario</a> |");
+                out.println(" <a href='eliminar.jsp?id="+rs2.getString("usuarios.id_usu")+"'>Eliminar usuario</a> ");
                 out.println("</th>");
                 out.println("</tr>");
                 
@@ -275,22 +278,9 @@
         %>
       </div>
   </div>
-      <h2>Agregar nuevo medico</h2>
-        <s:form action="/MAdd">
-            <s:textfield placeHolder="Nombre(s)" name="nombre" label="Nombre"/>
-            <s:textfield placeHolder="Apellido(s)" name="apellido" label="Apellidos" />
-            <s:textfield placeHolder="Calle y #" name="callen" label="Callen" />
-            <s:textfield placeHolder="Colonia" name="colonia" label="Colonia" />
-            <s:textfield placeHolder="Municipio o delegación" name="municipio" label="Municipio" />
-            <s:textfield placeHolder="Ciudad" name="ciudad" label="Ciudad" />
-            <s:textfield placeHolder="Cedula" name="cedula" label="Cedula" />
-            <s:textfield placeHolder="yyyy-dd-MM" name="edad" label="Edad" />
-            <s:textfield placeHolder="Especialidad" name="especialidad" label="Especialidad" />
-            <br>
-            <br>
-            <s:submit/>
-        </s:form>
+      <h2>Médico</h2>
 
+</div>
 
 <footer class="container-fluid text-center">
   <a href="#myPage" title="To Top">
