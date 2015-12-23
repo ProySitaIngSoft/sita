@@ -241,7 +241,7 @@
             ResultSet rs2 = null;
             manejador.setConnection("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/sita");
 
-            rs2=manejador.executeQuery("SELECT id_med, nom_med, ap_med, Esp_med, Ced_med, id_usu FROM medicos");
+            rs2=manejador.executeQuery("SELECT id_pac, nom_pac, apps_pac, mail_pac, tel_pac, dir_pac, id_usu, edad_pac FROM pacientes");
             
             out.println("<table class=\"table table-striped table-bordered table-responsive\">");
             out.println("<thead>");
@@ -257,13 +257,13 @@
             
             while(rs2.next()){
                 out.println("<tr>");
-                out.println("<th>"+rs2.getString("medicos.nom_med")+" "+rs2.getString("medicos.ap_med")+"</th>");
-                out.println("<th>"+rs2.getString("medicos.Esp_med")+"</th>");
-                out.println("<th>"+rs2.getString("medicos.Ced_med")+"</th>");
-                out.println("<th>"+rs2.getString("medicos.id_usu")+"</th>");
+                out.println("<th>"+rs2.getString("pacientes.nom_pac")+" "+rs2.getString("pacientes.apps_pac")+"</th>");
+                out.println("<th>"+rs2.getString("pacientes.edad_pac")+"</th>");
+                out.println("<th>"+rs2.getString("pacientes.tel_pac")+"</th>");
+                out.println("<th>"+rs2.getString("pacientes.mail_pac")+"</th>");
                 out.println("<th>");
-                out.println(" <a href='modificarM.jsp?id="+rs2.getString("medicos.id_med")+"'>Modificar</a> |");
-                out.println(" <a href='eliminarM.jsp?id="+rs2.getString("medicos.id_med")+"'>Eliminar</a> ");
+                out.println(" <a href='modificarM.jsp?id="+rs2.getString("pacientes.id_pac")+"'>Modificar</a> |");
+                out.println(" <a href='eliminarM.jsp?id="+rs2.getString("pacientes.id_pac")+"'>Eliminar</a> ");
                 out.println("</th>");
                 out.println("</tr>");
                 
