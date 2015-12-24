@@ -32,7 +32,8 @@ class LoginBeanX{
             rs = pst.executeQuery();
             status = rs.next();   
             if(status){
-                id = rs.getInt("usuarios.id_usu");
+                id = rs.getInt("usuarios.acc_usu");
+                return(id);
             }
         } catch (Exception e) {  
             System.out.println(e);  

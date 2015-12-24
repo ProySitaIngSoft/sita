@@ -225,16 +225,16 @@
 <div id="about" class="container-fluid">
   <div class="row">
     <div class="col-sm-8">
-      <h2>Administración de usuarios</h2><br>
+      <%@ page import="java.sql.*" %>
+      <jsp:useBean id="manejador" scope="session" class="paquete.DB"></jsp:useBean>  
+      <%  String user = (String)session.getAttribute("userName"); %>
+      <h2>Bienvenido <%out.println(user);%></h2><br>
     </div>
     <div class="col-sm-4">
       <span class="glyphicon glyphicon-signal logo"></span>
     </div>
       <div>
-        <%@ page import="java.sql.*" %>
-        <jsp:useBean id="manejador" scope="session" class="paquete.DB"></jsp:useBean>
         <%
-            String user = (String)session.getAttribute("userName");
             String rol = "";
             int nivel = 1;
             ResultSet rs=null;
