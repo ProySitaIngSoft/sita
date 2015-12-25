@@ -207,9 +207,7 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="admin.jsp">INICIO</a></li>
-        <li><a href="medicos.jsp">MEDICOS</a></li>
-        <li><a href="pacientes.jsp">PACIENTES</a></li>
+        <li><a href="pacientei.jsp">INICIO</a></li>
       </ul>
     </div>
   </div>
@@ -227,7 +225,7 @@
     <div class="col-sm-8">
       <%@ page import="java.sql.*" %>
       <jsp:useBean id="manejador" scope="session" class="paquete.DB"></jsp:useBean>  
-      <%  String user = (String)session.getAttribute("userName"); %>
+      <%  String user = (String)session.getAttribute("username"); %>
       <h2>Bienvenido <%out.println(user);%></h2><br>
     </div>
     <div class="col-sm-4">

@@ -234,7 +234,12 @@
         <%@ page import="java.sql.*" %>
         <jsp:useBean id="manejador" scope="session" class="paquete.DB"></jsp:useBean>
         <%
-            String user = (String)session.getAttribute("userName");
+            String user = (String)session.getAttribute("username");
+            String acc = (String)session.getAttribute("acc");
+            int acc2 = Integer.parseInt(acc);
+        if(acc2==3){
+                //out.println("Acceso autorizado<br>");
+            
             String rol = "";
             int nivel = 1;
             ResultSet rs=null;
@@ -274,6 +279,9 @@
             
             out.println("</tbody>");
             out.println("</table>");
+        }else{
+            response.sendRedirect("index.jsp");
+        }
 
         %>
       </div>

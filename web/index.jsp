@@ -213,7 +213,16 @@
         <li><a href="#portfolio">HIGHLIGHTS</a></li>
         <li><a href="#pricing">PRECIOS</a></li>
         <li><a href="#contact">CONTÁCTO</a></li>
-        <li><a href="#login">LOGIN</a></li>
+        <%
+            String user = (String)session.getAttribute("username");
+            String acc = (String)session.getAttribute("acc");
+            if(user==null&&acc==null){
+                out.println("<li><a href=\"#login\">LOGIN</a></li>");
+            }else{
+                out.println("<li><a href=\"#login\">"+user+"</a></li>");
+            }
+        %>
+        <!--<li><a href="#login">LOGIN</a></li>-->
       </ul>
     </div>
   </div>
@@ -465,19 +474,32 @@
 <br>
 <!-- SECCION LOGIN -->
 <div id="login" class="container-fluid">
-    <h2 class="text-center">Inicio de Sesión</h2>
+    
+    <%
+            if(user==null&&acc==null){
+                out.println("<h2 class=\"text-center\">Inicio de Sesión");
+            }else{
+                out.println("<h2 class=\"text-center\">Cerrar Sesión</h2>");
+                out.println("    <center>");
+                out.println("<button type=\"button\" class=\"btn btn-danger\">Cerrar Sesión</button>");
+                out.println("</h2>");
+                out.println("    </center>");
+            }
+    %>
+    
+   <h2 class="text-center"></h2>
     <center>
     <s:form action="/Login">
     <div class="col-sm-7 slideanim">
       <div class="row">
         <div class="col-sm-6 form-group">
-          <s:textfield placeHolder="Usuario" name="username" label="Username"/>
-          <s:password placeHolder="Contraseña" name="password" label="Password" />
+          < s:textfield placeHolder="Usuario" name="username" label="Username"/>
+          < s:password placeHolder="Contraseña" name="password" label="Password" />
         </div>
       </div>
       <div class="row">
         <div class="col-sm-12 form-group">
-          <s:submit value="Accesar"/>
+          < s:submit value="Accesar"/>
         </div>
       </div>	
     </div>
