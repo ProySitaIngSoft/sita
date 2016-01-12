@@ -244,8 +244,6 @@
             ResultSet rs=null;
             ResultSet rs2 = null;
             manejador.setConnection("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/sita");
-            
-            if(3==3){
             rs2=manejador.executeQuery("SELECT id_usu, nom_usu, pass_usu, acc_usu FROM usuarios WHERE id_usu='"+Id+"' ");
             out.println("<table class=\"table table-striped table-bordered table-responsive\">");
             out.println("<thead>");
@@ -274,9 +272,6 @@
             
             out.println("</tbody>");
             out.println("</table>");
-            }else{
-                
-            }
       %>
     </div>
   </div>
