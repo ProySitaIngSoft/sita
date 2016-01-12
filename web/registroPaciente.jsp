@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib  uri="/struts-tags" prefix="s"%>
 <html lang="es">
     <head>
         <!-- Theme Made By www.w3schools.com - No Copyright -->
@@ -207,161 +207,42 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="admin.jsp">INICIO</a></li>
+                        <li><a href="index.jsp">INICIO</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
-
+        
         <div class="jumbotron text-center">
             <h1>SITA</h1> 
             <p>SISTEMA INTELIGENTE DE ATENCIÓN A PACIENTES</p>  
         </div>
-        <div class='container'>
-            <div class='panel panel-primary dialog-panel'>
-                <div class='panel-heading'>
-                    <h1>Registro de Pacientes</h1>
-                </div>
-                <div class='panel-body'>
-                    <form class='form-horizontal' role='form'>
-                  
-                        <div class='form-group'>
-                            <label class='control-label col-md-2 col-md-offset-2' for='id_title'>Nombre</label>
-                            <div class='col-md-8'>
-                                <div class='col-md-3 indent-small'>
-                                    <div class='form-group internal'>
-                                        <input class='form-control' id='id_first_name' placeholder='Nombre(s)' type='text'>
-                                    </div>
-                                </div>
-                                <div class='col-md-3 indent-small'>
-                                    <div class='form-group internal'>
-                                        <input class='form-control' id='id_first_name' placeholder='Apellido Paterno' type='text'>
-                                    </div>
-                                </div>
-                                <div class='col-md-3 indent-small'>
-                                    <div class='form-group internal'>
-                                        <input class='form-control' id='id_last_name' placeholder='Apellido Materno' type='text'>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class='form-group'>
-                            <label class='control-label col-md-2 col-md-offset-2' for='id_accomodation'>Sexo</label>
-                            <div class='col-md-2'>
-                                <select class='form-control' id='id_accomodation'>
-                                    <option>Femenino</option>
-                                    <option>Masculino</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class='form-group'>
-                            <label class='control-label col-md-2 col-md-offset-2' for='id_adults'>Fecha de Nacimiento</label>
-                            <div class='col-md-8'>
-                                <div class='col-md-2'>
-                                    <div class='form-group internal'>
-                                         <input type="datetime-local" name="fechayhora"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class='form-group'>
-                            <label class='control-label col-md-2 col-md-offset-2' for='id_email'>Contácto</label>
-                            <div class='col-md-6'>
-                                <div class='form-group'>
-                                    <div class='col-md-11'>
-                                        <input class='form-control' id='id_email' placeholder='Correo Electrónico' type='text'>
-                                    </div>
-                                </div>
-                                <div class='form-group internal'>
-                                    <div class='col-md-11'>
-                                        <input class='form-control' id='id_phone' placeholder='Teléfono: (xxx) - xxx xxxx' type='text'>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>                      
-                        <div class='form-group'>
-                            <label class='control-label col-md-2 col-md-offset-2' for='id_title'>Usuario</label>
-                            <div class='col-md-8'>
-                                <div class='col-md-3 indent-small'>
-                                    <div class='form-group internal'>
-                                        <input class='form-control' id='id_first_name' placeholder='Usuario' type='text'>
-                                    </div>
-                                </div>
-                                <div class='col-md-3 indent-small'>
-                                    <div class='form-group internal'>
-                                        <input class='form-control' id='id_first_name' placeholder='Contraseña' type='text'>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <h2>Cita médica</h2>
-                        <div class='form-group'>
-                            <label class='control-label col-md-2 col-md-offset-2' for='id_adults'>Fecha de cita médica</label>
-                            <div class='col-md-8'>
-                                <div class='col-md-2'>
-                                    <div class='form-group internal'>
-                                         <input type="datetime-local" name="fechayhora"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class='form-group'>
-                            <label class='control-label col-md-2 col-md-offset-2' for='id_comments'>Motivo de cita médica</label>
-                            <div class='col-md-6'>
-                                <textarea class='form-control' id='id_comments' placeholder='Motivos específicos' rows='3'></textarea>
-                            </div>
-                        </div>
-                        <div class='form-group'>
-                            <label class='control-label col-md-2 col-md-offset-2' for='id_accomodation'>Especialidad</label>
-                            <div class='col-md-2'>
-                                <select class='form-control' id='id_accomodation'>
-                                    <option>Alergiología</option>
-                                    <option>Cardeología</option>
-                                    <option>Diabetología</option>
-                                    <option>Ginecología</option>
-                                    <option>Oncología</option>
-                                    <option>Urología</option>
-                                    <option>Traumatología</option>
-                                    <option>Nutrición</option>
-                                    <option>Neurología</option>
-                                    <option>General</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class='form-group'>
-                            <label class='control-label col-md-2 col-md-offset-2' for='id_adults'>Fecha de cita Médica</label>
-                            <div class='col-md-8'>
-                                <div class='col-md-2'>
-                                    <div class='form-group internal'>
-                                         <input type="datetime-local" name="fechayhora"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class='form-group'>
-                            <div class='col-md-offset-4 col-md-3'>
-                                <button class='btn-lg btn-primary' type='submit'>Registrar</button>
-                            </div>
-                            <div class='col-md-3'>
-                                <button class='btn-lg btn-danger' style='float:right' type='submit'>Cancelar</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+        <!--FORMULARIO-->
+        <h1>Registro de Pacientes</h1>
+        <s:form action="/PAdd">
+            <div class='form-group'>
+                <s:textfield placeholder="Nombre(s)" name="nombre" label="Nombre" />
+                <s:textfield placeholder="Apellido Paterno" name="app" label="Apellido Paterno" />
+                <s:textfield placeholder="Apellido Materno" name="apm" label="Apellido Materno" />
+                <s:textfield placeHolder="Sexo" name="sexo" label="Sexo" />
+                <s:textfield placeholder="Fecha de Nacimiento" type="date" name="fechanac" />
+                <s:textfield placeholder="Edad" name="edad" label="Edad" />
+                <s:textfield placeholder="Correo Electrónico" name="email" label="Correo Electrónico" />
+                <s:textfield placeholder="Teléfono: (xxx) - xxx xxxx" name="tel" label="Teléfono" />
+                <s:textarea placeholder="Dirección" rows="3" name="dir" label="Dirección" />
+                <s:textfield placeholder="Usuario" name="user" label="Usuario" />
+                <s:textfield placeholder="Contraseña" name="pass" label="Contraseña" />
+                <s:textfield placeholder="Fecha cita médica" type="datetime-local" name="fechacita" label="Fecha cita medica" />
+                <s:textarea placeholder="Motivos específicos" rows="3" name="motivo" label="Motivos específicos" />
+                <s:textarea placeholder="Especialidad" rows="3" name="espe" label="Especialidad" />
+                <s:submit/>  
             </div>
-        </div>
-
-
-
+        </s:form>
         <footer class="container-fluid text-center">
             <a href="#myPage" title="To Top">
                 <span class="glyphicon glyphicon-chevron-up"></span>
             </a>
             <p>SITA</p>		
         </footer>
-
-
     </body>
 </html>

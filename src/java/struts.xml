@@ -38,6 +38,10 @@
             <result name="error">medicos.jsp</result>
         </action>
         
+        <action name="PAdd" class="paquete.PAddAction">
+            <result name="exitoso">registroPaciente.jsp</result>
+            <result name="error">registroPaciente.jsp</result>
+        </action>
         
     </package>
 </struts>

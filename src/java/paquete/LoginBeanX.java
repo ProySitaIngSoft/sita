@@ -177,4 +177,18 @@ class LoginBeanX{
         }
         return status;
     }
+    
+    public int PaddUser(String nom, String app, String apm, String sexo, String fechanac, String edad, String correo, String telefono, String dir, String user, String pass, String f_cita, String motivo, String especialidad) {
+        int status = 0;
+        try {
+            con = Conexion.getConexion();
+            String consulta = "insert into pacientes(nom_pac, ap_pat, ap_mat, sexo, fec_nac, edad_pac, mail_pac, tel_pac, dir_pac, user_pac, pass_pac, fec_med, motivo, especialidad)values('" + nom + "', '" + app + "', '" + apm + "','" + sexo + "','" + fechanac + "','" + edad + "','" + correo + "', '" + telefono + "','" + dir + "', '" + user + "', '" + pass + "', '" + f_cita + "', '" + motivo + "', '" + especialidad + "');";
+            pst = con.prepareStatement(consulta);
+            int cols = pst.executeUpdate(consulta);
+            status = 1;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return status;
+    }
 }
