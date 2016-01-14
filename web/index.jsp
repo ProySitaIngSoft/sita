@@ -3,6 +3,23 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <html lang="es">
 <head>
+    <script>
+        function loadDoc() {
+        
+        var xhttp = new XMLHttpRequest();
+        
+        xhttp.onreadystatechange = function() {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                alert("Adios ;)");
+            }
+        };
+        
+        xhttp.open("POST", "csesion.jsp", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("id=0");
+        setTimeout("location.href = 'index.jsp';", 1000);
+    }
+    </script>
   <!-- Theme Made By www.w3schools.com - No Copyright -->
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>SITA</title>
@@ -481,7 +498,7 @@
             }else{
                 out.println("<h2 class=\"text-center\">Cerrar Sesión</h2>");
                 out.println("    <center>");
-                out.println("<button type=\"button\" class=\"btn btn-danger\">Cerrar Sesión</button>");
+                out.println("<button type=\"button\" onclick=\"loadDoc();\" class=\"btn btn-danger\">Cerrar Sesión</button>");
                 out.println("</h2>");
                 out.println("    </center>");
             }

@@ -295,7 +295,8 @@
       %>
     </div>
   </div>
-        <s:form action="/MAdd">
+        <s:form action="/MMod">
+            <input type="hidden" name="id" value=<%out.println(Id);%>/>
             <s:textfield placeHolder="Nombre(s)" name="nombre" label="Nombre"/>
             <s:textfield placeHolder="Apellido(s)" name="apellido" label="Apellidos" />
             <s:textfield placeHolder="Calle y #" name="callen" label="Callen" />

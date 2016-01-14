@@ -3,6 +3,11 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <html lang="es">
 <head>
+    <%
+        int Id = Integer.parseInt(request.getParameter("id"));
+        int Idp = Integer.parseInt(request.getParameter("pid"));
+        String Fch = request.getParameter("fch");
+    %>
   <!-- Theme Made By www.w3schools.com - No Copyright -->
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>SITA</title>
@@ -225,7 +230,7 @@
 <div id="about" class="container-fluid">
   <div class="row">
     <div class="col-sm-8">
-      <h2>Administración de usuarios</h2><br>
+      <h2>Generar registro de consulta</h2>
     </div>
     <div class="col-sm-4">
       <span class="glyphicon glyphicon-signal logo"></span>
@@ -234,74 +239,54 @@
         <%@ page import="java.sql.*" %>
         <jsp:useBean id="manejador" scope="session" class="paquete.DB"></jsp:useBean>
         <%
-            String user = (String)session.getAttribute("username");
-            String acc = (String)session.getAttribute("acc");
-            int acc2 = Integer.parseInt(acc);
-        if(acc2==3){
-                //out.println("Acceso autorizado<br>");
-            
             String rol = "";
             int nivel = 1;
             ResultSet rs=null;
             ResultSet rs2 = null;
             manejador.setConnection("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/sita");
-
-            rs2=manejador.executeQuery("SELECT id_usu, nom_usu, acc_usu FROM usuarios");
-            
+            rs=manejador.executeQuery("SELECT nom_pac, apps_pac FROM pacientes WHERE id_usu='"+Idp+"'");
+            rs2=manejador.executeQuery("SELECT citas.fecha, motivo, anotaciones FROM consultas, citas WHERE citas.id_usu='"+Idp+"' and citas.id_cita=consultas.id_cita;");
+            rs.next();
+            out.println("<h4>Historial del paciente: "+rs.getString("pacientes.nom_pac")+" "+rs.getString("pacientes.apps_pac")+"</h4>");
             out.println("<table class=\"table table-striped table-bordered table-responsive\">");
             out.println("<thead>");
             out.println("<tr>");
-            out.println("<th>Id</th>");
-            out.println("<th>Nombre</th>");
-            out.println("<th>Rol</th>");
-            out.println("<th>Acciones</th>");
+            out.println("<th>Fecha</th>");
+            out.println("<th>Motivo</th>");
+            out.println("<th>Anotaciones realizadas por el médico</th>");
             out.println("</tr>");
             out.println("</thead>");
             out.println("<tbody>");
             
             while(rs2.next()){
-                String acceso = "Administrador";
-                if(rs2.getInt("usuarios.acc_usu")==1){
-                    acceso = "Paciente";
-                }else if(rs2.getInt("usuarios.acc_usu")==2){
-                    acceso = "Medico";
-                }
                 out.println("<tr>");
-                out.println("<th>"+rs2.getString("usuarios.id_usu")+"</th>");
-                out.println("<th>"+rs2.getString("usuarios.nom_usu")+"</th>");
-                out.println("<th>"+acceso+"</th>");
-                //out.println("<th>"+rs2.getString("usuarios.acc_usu")+"</th>");
-                out.println("<th>");
-                out.println(" <a href='modificar.jsp?id="+rs2.getString("usuarios.id_usu")+"'>Modificar usuario</a> |");
-                out.println(" <a href='eliminar.jsp?id="+rs2.getString("usuarios.id_usu")+"'>Eliminar usuario</a> ");
-                out.println("</th>");
+                out.println("<th>"+rs2.getString("citas.fecha")+"</th>");
+                out.println("<th>"+rs2.getString("citas.motivo")+"</th>");
+                out.println("<th>"+rs2.getString("consultas.anotaciones")+"</th>");
                 out.println("</tr>");
                 
             }
             
             out.println("</tbody>");
             out.println("</table>");
-        }else{
-            response.sendRedirect("index.jsp");
-        }
 
         %>
       </div>
   </div>
-      <h2>Agregar nuevo usuario</h2>
-        <s:form action="/Add">
-            <s:textfield placeHolder="ID" name="username" label="Username" required="true"/>
-            <s:textfield placeHolder="Contraseña" name="password" label="Password" required="true"/><br>
-             <s:select label="Rol" 
-		headerKey="-1" headerValue="Asigne un rol al usuario"
-		list="#{'1':'Paciente','2':'Medico', '3':'Administrador'}" 
-		name="rol" 
-		value="rol"  required="true"/>
-            <br>
-            <br>
-            <s:submit/>
+        
+        <s:form action="MAddCons">
+            <div class='form-group'>
+                <input type="hidden" name="id_cita" label="id_cita" value=<%out.println(Id);%>/>
+                <input type="hidden" name="fecha" label="fecha" value="<%out.println(Fch);%>"/>
+                <!--s:textfield placeholder="fecha" name="fecha" label="Fecha" type="date" required="true" />-->
+                <s:textfield placeholder="costo" name="costo" label="Costo" required="true" />
+                <s:textarea placeholder="Otras anotaciones" rows="8" cols="50"  name="anotaciones" label="Otras anotaciones" required="true" />
+                <br>
+                <br>
+                <s:submit/>  
+            </div>
         </s:form>
-</div>
+
 
 <footer class="container-fluid text-center">
   <a href="#myPage" title="To Top">

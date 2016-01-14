@@ -214,6 +214,34 @@
     </div>
   </div>
 </nav>
+    
+    <script>
+        function loadDoc(snd, std) {
+        
+        var xhttp = new XMLHttpRequest();
+        var est=0;
+        if(std==0){
+            est=1;
+        }
+        var eestd = document.getElementById(""+snd+"").innerHTML;
+        if(eestd==0){
+            eestd=1;
+        }else{
+            eestd=0;
+        }
+        
+        xhttp.onreadystatechange = function() {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                document.getElementById(""+snd+"").innerHTML = eestd;
+            }
+        };
+        
+        xhttp.open("POST", "cestado.jsp", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("id="+snd+"&std="+est);
+        //location.href = "professorIndex.jsp?grupo=0";
+    }
+    </script>
 
 <div class="jumbotron text-center">
   <h1>SITA</h1> 
@@ -225,48 +253,48 @@
 <div id="about" class="container-fluid">
   <div class="row">
     <div class="col-sm-8">
-      <h2>Administración de usuarios</h2><br>
+      <%@ page import="java.sql.*" %>
+      <jsp:useBean id="manejador" scope="session" class="paquete.DB"></jsp:useBean>  
+      <%  String user = (String)session.getAttribute("username"); %>
+      <h2>Bienvenido <%out.println(user);%></h2><br>
     </div>
     <div class="col-sm-4">
       <span class="glyphicon glyphicon-signal logo"></span>
     </div>
       <div>
-        <%@ page import="java.sql.*" %>
-        <jsp:useBean id="manejador" scope="session" class="paquete.DB"></jsp:useBean>
         <%
-            String user = (String)session.getAttribute("userName");
             String rol = "";
             int nivel = 1;
             ResultSet rs=null;
             ResultSet rs2 = null;
             manejador.setConnection("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/sita");
 
-            rs2=manejador.executeQuery("SELECT id_usu, nom_usu, acc_usu FROM usuarios");
+            rs2=manejador.executeQuery("SELECT citas.id_usu, id_cita, estado, nom_pac, apps_pac, id_pac, fecha, hora, motivo FROM pacientes, citas WHERE estado=0 and pacientes.id_usu=citas.id_usu;");
             
+            out.println("<h4>Próximas citas</h4>");
             out.println("<table class=\"table table-striped table-bordered table-responsive\">");
             out.println("<thead>");
             out.println("<tr>");
-            out.println("<th>Nombre</th>");
-            out.println("<th>Rol</th>");
+            out.println("<th>Paciente</th>");
+            out.println("<th>Fecha</th>");
+            out.println("<th>Hora</th>");
+            out.println("<th>Motivo</th>");
+            out.println("<th>Estado</th>");
             out.println("<th>Acciones</th>");
             out.println("</tr>");
             out.println("</thead>");
             out.println("<tbody>");
             
             while(rs2.next()){
-                String acceso = "Administrador";
-                if(rs2.getInt("usuarios.acc_usu")==1){
-                    acceso = "Paciente";
-                }else if(rs2.getInt("usuarios.acc_usu")==2){
-                    acceso = "Medico";
-                }
                 out.println("<tr>");
-                out.println("<th>"+rs2.getString("usuarios.nom_usu")+"</th>");
-                out.println("<th>"+acceso+"</th>");
-                //out.println("<th>"+rs2.getString("usuarios.acc_usu")+"</th>");
+                out.println("<th>"+rs2.getString("pacientes.nom_pac")+" "+rs2.getString("pacientes.apps_pac")+"</th>");
+                out.println("<th>"+rs2.getString("citas.fecha")+"</th>");
+                out.println("<th>"+rs2.getString("citas.hora")+"</th>");
+                out.println("<th>"+rs2.getString("citas.motivo")+"</th>");
+                out.println("<th id=\""+rs2.getInt("citas.id_cita")+"\">"+rs2.getString("citas.estado")+"</th>");
                 out.println("<th>");
-                out.println(" <a href='modificar.jsp?id="+rs2.getString("usuarios.id_usu")+"'>Modificar usuario</a> |");
-                out.println(" <a href='eliminar.jsp?id="+rs2.getString("usuarios.id_usu")+"'>Eliminar usuario</a> ");
+                out.println("<button type=\"button\" onclick=\"loadDoc("+rs2.getString("citas.id_cita")+","+rs2.getString("citas.estado")+")\">Cambiar estado</button>");
+                out.println(" <a href='crear_C.jsp?id="+rs2.getString("citas.id_cita")+"&pid="+rs2.getString("citas.id_usu")+"&fch="+rs2.getString("citas.fecha")+"'><button type=\"button\">Generar consulta</button> </a> ");
                 out.println("</th>");
                 out.println("</tr>");
                 

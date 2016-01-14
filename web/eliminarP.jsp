@@ -2,10 +2,13 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <html lang="es">
+    <%
+        int Id = Integer.parseInt(request.getParameter("id"));
+    %>
 <head>
   <!-- Theme Made By www.w3schools.com - No Copyright -->
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>SITA</title>
+  <title>Eliminar</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -225,82 +228,17 @@
 <div id="about" class="container-fluid">
   <div class="row">
     <div class="col-sm-8">
-      <h2>Administración de usuarios</h2><br>
+      <h2>Eliminar Paciente</h2>
     </div>
-    <div class="col-sm-4">
-      <span class="glyphicon glyphicon-signal logo"></span>
-    </div>
-      <div>
-        <%@ page import="java.sql.*" %>
-        <jsp:useBean id="manejador" scope="session" class="paquete.DB"></jsp:useBean>
-        <%
-            String user = (String)session.getAttribute("username");
-            String acc = (String)session.getAttribute("acc");
-            int acc2 = Integer.parseInt(acc);
-        if(acc2==3){
-                //out.println("Acceso autorizado<br>");
-            
-            String rol = "";
-            int nivel = 1;
-            ResultSet rs=null;
-            ResultSet rs2 = null;
-            manejador.setConnection("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/sita");
-
-            rs2=manejador.executeQuery("SELECT id_usu, nom_usu, acc_usu FROM usuarios");
-            
-            out.println("<table class=\"table table-striped table-bordered table-responsive\">");
-            out.println("<thead>");
-            out.println("<tr>");
-            out.println("<th>Id</th>");
-            out.println("<th>Nombre</th>");
-            out.println("<th>Rol</th>");
-            out.println("<th>Acciones</th>");
-            out.println("</tr>");
-            out.println("</thead>");
-            out.println("<tbody>");
-            
-            while(rs2.next()){
-                String acceso = "Administrador";
-                if(rs2.getInt("usuarios.acc_usu")==1){
-                    acceso = "Paciente";
-                }else if(rs2.getInt("usuarios.acc_usu")==2){
-                    acceso = "Medico";
-                }
-                out.println("<tr>");
-                out.println("<th>"+rs2.getString("usuarios.id_usu")+"</th>");
-                out.println("<th>"+rs2.getString("usuarios.nom_usu")+"</th>");
-                out.println("<th>"+acceso+"</th>");
-                //out.println("<th>"+rs2.getString("usuarios.acc_usu")+"</th>");
-                out.println("<th>");
-                out.println(" <a href='modificar.jsp?id="+rs2.getString("usuarios.id_usu")+"'>Modificar usuario</a> |");
-                out.println(" <a href='eliminar.jsp?id="+rs2.getString("usuarios.id_usu")+"'>Eliminar usuario</a> ");
-                out.println("</th>");
-                out.println("</tr>");
-                
-            }
-            
-            out.println("</tbody>");
-            out.println("</table>");
-        }else{
-            response.sendRedirect("index.jsp");
-        }
-
-        %>
-      </div>
-  </div>
-      <h2>Agregar nuevo usuario</h2>
-        <s:form action="/Add">
-            <s:textfield placeHolder="ID" name="username" label="Username" required="true"/>
-            <s:textfield placeHolder="Contraseña" name="password" label="Password" required="true"/><br>
-             <s:select label="Rol" 
-		headerKey="-1" headerValue="Asigne un rol al usuario"
-		list="#{'1':'Paciente','2':'Medico', '3':'Administrador'}" 
-		name="rol" 
-		value="rol"  required="true"/>
+    <div class="col-sm-8">
+        ¿Seguro que desea eliminar al paciente con Id <%out.println(Id);%>?
+        <s:form action="/deletePAC">
+            <input type="hidden" name="id" value=<%out.println(Id);%>/>
             <br>
-            <br>
-            <s:submit/>
+            <s:submit value="Si, eliminar" />
         </s:form>
+    </div>
+  </div>
 </div>
 
 <footer class="container-fluid text-center">
@@ -313,3 +251,5 @@
 
 </body>
 </html>
+
+

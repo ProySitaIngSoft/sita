@@ -17,6 +17,15 @@ public class MModifyAction extends ActionSupport
         private String cedula;
         private String edad;
         private String especialidad;
+        private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNombre() {
         return nombre;
@@ -95,7 +104,7 @@ public class MModifyAction extends ActionSupport
         @Override
     public String execute() {
          LoginBeanX lb = new LoginBeanX();
-        if(lb.MaddUser(nombre,apellido, callen, colonia, municipio, ciudad, cedula, edad, especialidad)==1){
+        if(lb.MModifyUser(id, nombre,apellido, callen, colonia, municipio, ciudad, cedula, edad, especialidad)==1){
             return "exitoso";
         }else{
             return "error";

@@ -246,6 +246,7 @@
             out.println("<table class=\"table table-striped table-bordered table-responsive\">");
             out.println("<thead>");
             out.println("<tr>");
+            out.println("<th>Id</th>");
             out.println("<th>Nombre</th>");
             out.println("<th>Edad</th>");
             out.println("<th>Telefono</th>");
@@ -257,13 +258,14 @@
             
             while(rs2.next()){
                 out.println("<tr>");
+                out.println("<th>"+rs2.getString("pacientes.id_pac")+"</th>");
                 out.println("<th>"+rs2.getString("pacientes.nom_pac")+" "+rs2.getString("pacientes.apps_pac")+"</th>");
                 out.println("<th>"+rs2.getString("pacientes.edad_pac")+"</th>");
                 out.println("<th>"+rs2.getString("pacientes.tel_pac")+"</th>");
                 out.println("<th>"+rs2.getString("pacientes.mail_pac")+"</th>");
                 out.println("<th>");
-                out.println(" <a href='modificarM.jsp?id="+rs2.getString("pacientes.id_pac")+"'>Modificar</a> |");
-                out.println(" <a href='eliminarM.jsp?id="+rs2.getString("pacientes.id_pac")+"'>Eliminar</a> ");
+                out.println(" <a href='modificarP.jsp?id="+rs2.getString("pacientes.id_pac")+"'>Modificar</a> |");
+                out.println(" <a href='eliminarP.jsp?id="+rs2.getString("pacientes.id_pac")+"'>Eliminar</a> ");
                 out.println("</th>");
                 out.println("</tr>");
                 
@@ -276,19 +278,20 @@
       </div>
   </div>
       <h2>Registrar nuevo paciente</h2>
-        <s:form action="/MAdd">
-            <s:textfield placeHolder="Nombre(s)" name="nombre" label="Nombre"/>
-            <s:textfield placeHolder="Apellido(s)" name="apellido" label="Apellidos" />
-            <s:textfield placeHolder="Calle y #" name="callen" label="Callen" />
-            <s:textfield placeHolder="Colonia" name="colonia" label="Colonia" />
-            <s:textfield placeHolder="Municipio o delegación" name="municipio" label="Municipio" />
-            <s:textfield placeHolder="Ciudad" name="ciudad" label="Ciudad" />
-            <s:textfield placeHolder="Cedula" name="cedula" label="Cedula" />
-            <s:textfield placeHolder="yyyy-dd-MM" name="edad" label="Edad" />
-            <s:textfield placeHolder="Especialidad" name="especialidad" label="Especialidad" />
-            <br>
-            <br>
-            <s:submit/>
+        <s:form action="/PAdd">
+            <div class='form-group'>
+                <s:textfield placeholder="id_usuario" name="id_usu" label="id_Usuario" required="true"/>
+                <s:textfield placeholder="Nombre(s)" name="nom_pac" label="Nombre" required="true"/>
+                <s:textfield placeholder="Apellido (s)" name="apps_pac" label="Apellido (s)" required="true"/>
+                <s:textfield placeHolder="Sexo" name="sexo" label="Sexo" required="true"/>
+                <s:textfield placeholder="Teléfono: (xxx) - xxx xxxx" name="tel_pac" label="Teléfono" required="true"/>
+                <s:textfield placeholder="Correo Electrónico" name="mail_pac" label="Correo Electrónico" required="true"/>
+                <s:textarea placeholder="Dirección" rows="3" name="dir_pac" label="Dirección" required="true"/>
+                <s:textfield placeholder="Fecha de Nacimiento (yyyy-dd-mm)" type="date" name="edad_pac" required="true"/>
+                <br>
+                <br>
+                <s:submit/>  
+            </div>
         </s:form>
 
 

@@ -238,34 +238,33 @@
             ResultSet rs=null;
             ResultSet rs2 = null;
             manejador.setConnection("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/sita");
-
-            rs2=manejador.executeQuery("SELECT id_usu, nom_usu, acc_usu FROM usuarios");
             
+            rs=manejador.executeQuery("SELECT id_usu FROM usuarios WHERE nom_usu='"+user+"'");
+            rs.next();
+            int idu = rs.getInt("usuarios.id_usu");
+            
+            rs2=manejador.executeQuery("SELECT * FROM citas WHERE estado=0 and id_usu='"+idu+"'");
+            
+            out.println("<h2>Proximas citas:</h2>");
             out.println("<table class=\"table table-striped table-bordered table-responsive\">");
             out.println("<thead>");
             out.println("<tr>");
-            out.println("<th>Nombre</th>");
-            out.println("<th>Rol</th>");
-            out.println("<th>Acciones</th>");
+            out.println("<th>Día</th>");
+            out.println("<th>Hora</th>");
+            out.println("<th>Médico</th>");
             out.println("</tr>");
             out.println("</thead>");
             out.println("<tbody>");
             
             while(rs2.next()){
-                String acceso = "Administrador";
-                if(rs2.getInt("usuarios.acc_usu")==1){
-                    acceso = "Paciente";
-                }else if(rs2.getInt("usuarios.acc_usu")==2){
-                    acceso = "Medico";
-                }
+                int idmed = rs2.getInt("citas.id_med");
+                ResultSet rs3=null;
+                rs3=manejador.executeQuery("SELECT nom_med, ap_med FROM medicos WHERE id_med="+idmed+"");
+                rs3.next();
                 out.println("<tr>");
-                out.println("<th>"+rs2.getString("usuarios.nom_usu")+"</th>");
-                out.println("<th>"+acceso+"</th>");
-                //out.println("<th>"+rs2.getString("usuarios.acc_usu")+"</th>");
-                out.println("<th>");
-                out.println(" <a href='modificar.jsp?id="+rs2.getString("usuarios.id_usu")+"'>Modificar usuario</a> |");
-                out.println(" <a href='eliminar.jsp?id="+rs2.getString("usuarios.id_usu")+"'>Eliminar usuario</a> ");
-                out.println("</th>");
+                out.println("<th>"+rs2.getString("citas.fecha")+"</th>");
+                out.println("<th>"+rs2.getString("citas.hora")+"</th>");
+                out.println("<th>"+rs3.getString("medicos.nom_med")+" "+rs3.getString("medicos.ap_med")+"</th>");
                 out.println("</tr>");
                 
             }
@@ -277,7 +276,40 @@
       </div>
   </div>
       <h2>Solicitar una consulta</h2>
+      <div id="consulta">
+          <%
+            ResultSet rs4=null;
+            manejador.setConnection("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/sita");
+            
+            rs4=manejador.executeQuery("SELECT id_med, nom_med, ap_med, Esp_med FROM medicos");
+            
+            out.println("<h4>Médicos disponibles:</h4>");
+            out.println("<table class=\"table table-striped table-bordered table-responsive\">");
+            out.println("<thead>");
+            out.println("<tr>");
+            out.println("<th>Nombre</th>");
+            out.println("<th>Especialidad</th>");
+            out.println("<th>Acciones</th>");
+            out.println("</tr>");
+            out.println("</thead>");
+            out.println("<tbody>");
+            
+            while(rs4.next()){;
+                out.println("<tr>");
+                out.println("<th>"+rs4.getString("medicos.nom_med")+" "+rs4.getString("medicos.ap_med")+"</th>");
+                out.println("<th>"+rs4.getString("medicos.Esp_med")+"</th>");
+                out.println("<th>");
+                out.println(" <a href='cita_medica.jsp?id="+idu+"&idm="+rs4.getString("medicos.id_med")+"'>Hacer cita</a>");
+                out.println("</th>");
+                out.println("</tr>");
+                
+            }
+            
+            out.println("</tbody>");
+            out.println("</table>");
 
+        %>
+      </div>    
 </div>
 
 <footer class="container-fluid text-center">

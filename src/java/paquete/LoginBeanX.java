@@ -98,13 +98,13 @@ class LoginBeanX{
         return status;
     }
     
-    public int MModifyUser(String nom, String aps, String callen, String colonia, String del, String cd, String ced, String edad, String esp){
+    public int MModifyUser(int id, String nom, String aps, String callen, String colonia, String del, String cd, String ced, String edad, String esp){
         int status = 0;
         try {
             con = Conexion.getConexion();
             String consulta = "update medicos set nom_med='"+nom+"', ap_med='"+aps+"', calle_med='"+callen+"', Col_med='"+colonia+"', "
                     + "Del_med='"+del+"', Cd_med='"+cd+"', "
-                    + "Ced_med='"+ced+"', Ed_med='"+edad+"', Esp_med='"+esp+"';";
+                    + "Ced_med='"+ced+"', Ed_med='"+edad+"', Esp_med='"+esp+"' WHERE id_med="+id+";";
             pst = con.prepareStatement(consulta);
             int cols = pst.executeUpdate(consulta);
             status=1;
@@ -178,16 +178,77 @@ class LoginBeanX{
         return status;
     }
     
-    public int PaddUser(String nom, String app, String apm, String sexo, String fechanac, String edad, String correo, String telefono, String dir, String user, String pass, String f_cita, String motivo, String especialidad) {
+    public int PaddUser(int id_usu, String nom_pac, String apps_pac, String sexo, String tel_pac, String mail_pac, String dir_pac, String edad_pac) {
         int status = 0;
         try {
             con = Conexion.getConexion();
-            String consulta = "insert into pacientes(nom_pac, ap_pat, ap_mat, sexo, fec_nac, edad_pac, mail_pac, tel_pac, dir_pac, user_pac, pass_pac, fec_med, motivo, especialidad)values('" + nom + "', '" + app + "', '" + apm + "','" + sexo + "','" + fechanac + "','" + edad + "','" + correo + "', '" + telefono + "','" + dir + "', '" + user + "', '" + pass + "', '" + f_cita + "', '" + motivo + "', '" + especialidad + "');";
+            String consulta = "insert into pacientes(id_usu, nom_pac, apps_pac, sexo, tel_pac, mail_pac, dir_pac, edad_pac)values('" + id_usu + "','" + nom_pac + "', '" + apps_pac + "', '" + sexo + "','" + tel_pac + "','" + mail_pac + "','" + dir_pac + "','" + edad_pac + "');";
             pst = con.prepareStatement(consulta);
             int cols = pst.executeUpdate(consulta);
             status = 1;
         } catch (Exception e) {
             System.out.println(e);
+        }
+        return status;
+    }
+    
+    public int PaddCita(int id_usu, int id_med, String fecha, String hora, String motivo) {
+        int status = 0;
+        try {
+            con = Conexion.getConexion();
+            String consulta = "insert into citas(id_usu, id_med, fecha, hora, motivo)values(" + id_usu + "," + id_med + ", '" + fecha + "', '" + hora + "','" + motivo + "');";
+            pst = con.prepareStatement(consulta);
+            int cols = pst.executeUpdate(consulta);
+            status = 1;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return status;
+    }
+    
+    public int MaddConsulta(int id_cita, String fecha, double costo, String anotaciones) {
+        int status = 0;
+        try {
+            con = Conexion.getConexion();
+            String consulta = "insert into consultas(id_cita, fecha, costo, anotaciones)values('" + id_cita + "','" + fecha + "', '" + costo + "', '" + anotaciones + "');";
+            String consulta2 = "UPDATE citas set estado=1 WHERE id_cita="+id_cita+";";
+            pst = con.prepareStatement(consulta);
+            pst = con.prepareStatement(consulta2);
+            int cols = pst.executeUpdate(consulta);
+            int cols2 = pst.executeUpdate(consulta2);
+            status = 1;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return status;
+    }
+    
+    public int MModifyPac(int id, String nom_pac, String apps_pac, String sexo, String tel_pac, String mail_pac,String dir_pac, String edad_pac){
+        int status = 0;
+        try {
+            con = Conexion.getConexion();
+            String consulta = "update pacientes set nom_pac='"+nom_pac+"', apps_pac='"+apps_pac+"', sexo='"+sexo+"', tel_pac='"+tel_pac+"', mail_pac='"+mail_pac+"', dir_pac='"+dir_pac+"', edad_pac='"+edad_pac+"' WHERE id_pac="+id+"";
+            pst = con.prepareStatement(consulta);
+            int cols = pst.executeUpdate(consulta);
+            status=1;
+        } catch (Exception e) {  
+            System.out.println(e);  
+        }
+        return status;
+    }
+    
+    
+    public int deletePa(int id){
+        int status = 0;
+        try {
+            con = Conexion.getConexion();
+            String consulta = "DELETE FROM pacientes\n" +
+                                "WHERE id_pac='"+id+"';";
+            pst = con.prepareStatement(consulta);
+            int cols = pst.executeUpdate(consulta);
+            status=1;
+        } catch (Exception e) {  
+            System.out.println(e);  
         }
         return status;
     }

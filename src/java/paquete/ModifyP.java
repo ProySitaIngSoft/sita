@@ -6,24 +6,16 @@ import java.util.List;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.Date;
 
-public class PAddAction extends ActionSupport {
-
-    private int id_usu;
-    private String nom_pac;
-    private String apps_pac;
-    private String sexo;
-    private String tel_pac;
-    private String mail_pac;
-    private String dir_pac;
-    private String edad_pac;
-
-    public int getId_usu() {
-        return id_usu;
-    }
-
-    public void setId_usu(int id_usu) {
-        this.id_usu = id_usu;
-    }
+public class ModifyP extends ActionSupport
+{
+        private String nom_pac;
+        private String apps_pac;
+        private String sexo;
+        private String tel_pac;
+        private String mail_pac;
+        private String dir_pac;
+        private String edad_pac;
+        private int id;
 
     public String getNom_pac() {
         return nom_pac;
@@ -80,19 +72,29 @@ public class PAddAction extends ActionSupport {
     public void setEdad_pac(String edad_pac) {
         this.edad_pac = edad_pac;
     }
-    
-    @Override
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+ 
+        @Override
     public String execute() {
-        LoginBeanX lb = new LoginBeanX();
-        if (lb.PaddUser(id_usu, nom_pac, apps_pac, sexo, tel_pac, mail_pac, dir_pac, edad_pac) == 1) {
+         LoginBeanX lb = new LoginBeanX();
+        if(lb.MModifyPac(id,nom_pac,apps_pac,sexo,tel_pac,mail_pac,dir_pac,edad_pac)==1){
             return "exitoso";
-        } else {
+        }else{
             return "error";
         }
+	}
+        
+        public String display() {
+		return NONE;
+	}
+        
     }
 
-    public String display() {
-        return NONE;
-    }
 
-}

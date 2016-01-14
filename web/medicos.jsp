@@ -277,15 +277,15 @@
   </div>
       <h2>Agregar nuevo medico</h2>
         <s:form action="/MAdd">
-            <s:textfield placeHolder="Nombre(s)" name="nombre" label="Nombre"/>
-            <s:textfield placeHolder="Apellido(s)" name="apellido" label="Apellidos" />
-            <s:textfield placeHolder="Calle y #" name="callen" label="Callen" />
-            <s:textfield placeHolder="Colonia" name="colonia" label="Colonia" />
-            <s:textfield placeHolder="Municipio o delegación" name="municipio" label="Municipio" />
-            <s:textfield placeHolder="Ciudad" name="ciudad" label="Ciudad" />
-            <s:textfield placeHolder="Cedula" name="cedula" label="Cedula" />
-            <s:textfield placeHolder="yyyy-dd-MM" name="edad" label="Edad" />
-            <s:textfield placeHolder="Especialidad" name="especialidad" label="Especialidad" />
+            <s:textfield placeHolder="Nombre(s)" name="nombre" label="Nombre" required="true"/>
+            <s:textfield placeHolder="Apellido(s)" name="apellido" label="Apellidos" required="true"/>
+            <s:textfield placeHolder="Calle y #" name="callen" label="Callen" required="true"/>
+            <s:textfield placeHolder="Colonia" name="colonia" label="Colonia" required="true"/>
+            <s:textfield placeHolder="Municipio o delegación" name="municipio" label="Municipio" required="true"/>
+            <s:textfield placeHolder="Ciudad" name="ciudad" label="Ciudad" required="true"/>
+            <s:textfield placeHolder="Cedula" name="cedula" label="Cedula" required="true"/>
+            <s:textfield placeholder="Fecha de Nacimiento (yyyy-dd-mm)" type="date" name="edad" label="Edad" required="true"/>
+            <s:textfield placeHolder="Especialidad" name="especialidad" label="Especialidad" required="true"/>
             <br>
             <br>
             <s:submit/>

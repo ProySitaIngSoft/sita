@@ -11,6 +11,7 @@
             <result name="exitoso">admin.jsp</result>
             <result name="exitosop">pacientei.jsp</result>
             <result name="exitosom">medicoi.jsp</result>
+            <result name="error">index.jsp</result>
         </action>
         
         <action name="Add" class="paquete.AddAction">
@@ -33,6 +34,11 @@
             <result name="error">admin.jsp</result>
         </action>
         
+        <action name="MMod" class="paquete.MModifyAction">
+            <result name="exitoso">medicos.jsp</result>
+            <result name="error">medicos.jsp</result>
+        </action>
+        
         <action name="MDel" class="paquete.MDeleteAction">
             <result name="exitoso">medicos.jsp</result>
             <result name="error">medicos.jsp</result>
@@ -40,7 +46,27 @@
         
         <action name="PAdd" class="paquete.PAddAction">
             <result name="exitoso">registroPaciente.jsp</result>
-            <result name="error">registroPaciente.jsp</result>
+            <result name="error">pacientes.jsp</result>
+        </action>
+        
+        <action name="PAddC" class="paquete.CaddAction">
+            <result name="exitoso">pacientei.jsp</result>
+            <result name="error">pacientei.jsp</result>
+        </action>
+        
+        <action name="MAddCons" class="paquete.MaddConsulta">
+            <result name="exitoso">medicoi.jsp</result>
+            <result name="error">medicoi.jsp</result>
+        </action>     
+        
+        <action name="ModifyPac" class="paquete.ModifyP">
+            <result name="exitoso">pacientes.jsp</result>
+            <result name="error">pacientes.jsp</result>
+        </action>
+        
+        <action name="deletePAC" class="paquete.deletePaciente">
+            <result name="exitoso">pacientes.jsp</result>
+            <result name="error">pacientes.jsp</result>
         </action>
         
     </package>
